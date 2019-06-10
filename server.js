@@ -4,8 +4,8 @@ const accountsDb = require("./data/accounts-model");
 const server = express();
 server.use(express.json());
 
-// GET
-server.get("", async (req, res) => {
+// GET - works
+server.get("/", async (req, res) => {
   try {
     const accounts = await accountsDb.find();
     res.status(200).json(accounts);
@@ -15,8 +15,8 @@ server.get("", async (req, res) => {
   }
 });
 
-// GET by Id
-server.get("", async (req, res) => {
+// GET by Id - works
+server.get("/:id", async (req, res) => {
   try {
     const account = await accountsDb.findById(req.params.id);
     if (account) {
@@ -30,8 +30,8 @@ server.get("", async (req, res) => {
   }
 });
 
-// POST
-server.post("", async (req, res) => {
+// POST - works
+server.post("/", async (req, res) => {
   try {
     const account = await accountsDb.add(req.body);
     res.status(201).json(account);
@@ -41,10 +41,10 @@ server.post("", async (req, res) => {
   }
 });
 
-// PUT
-server.put("", async (req, res) => {
+// PUT - works
+server.put("/:id", async (req, res) => {
   try {
-    const account = await accountsDb.put(req.params.id, req.body);
+    const account = await accountsDb.update(req.params.id, req.body);
     if (account) {
       res.status(200).json(account);
     } else {
@@ -56,8 +56,8 @@ server.put("", async (req, res) => {
   }
 });
 
-// DELETE
-server.delete("", async (req, res) => {
+// DELETE -
+server.delete("/:id", async (req, res) => {
   try {
     const account = await accountsDb.remove(req.params.id);
     if (account) {
